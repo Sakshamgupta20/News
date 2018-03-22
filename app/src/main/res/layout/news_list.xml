@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:paddingLeft="2dp"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="13sp"
+            android:text=" "/>
+        <TextView
+            android:textColor="#9E9E9E"
+            android:layout_width="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            android:id="@+id/author"
+            android:textSize="13dp"
+            android:text=" · Author"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+<TextView
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:id="@+id/title"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="7dp"
+    android:ellipsize="end"
+    android:maxLines="3"
+    android:textColor="@android:color/black"
+    android:textStyle="bold"
+    android:textAllCaps="true"
+    android:textAppearance="@android:style/TextAppearance.Medium"
+    android:text="name is sakshamsssssssssssssssssssas"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:minHeight="100dp"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/image1"
+            android:src="@mipmap/ic_launcher"/>
+    </LinearLayout>
+    <TextView
+        android:paddingBottom="5dp"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:textSize="15sp"
+        android:textColor="#9E9E9E"
+        android:text="vgvgvhgvvvhvghgvhvhvhvhvvvvvvvvvvvvvty"/>
+
+</LinearLayout>
