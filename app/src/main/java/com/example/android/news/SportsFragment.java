@@ -60,8 +60,8 @@ public class SportsFragment extends Fragment implements LoaderManager.LoaderCall
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 word alink = adapter.getItem(position);
-                Uri url1 = Uri.parse(alink.getMurl());
-                Intent a = new Intent(Intent.ACTION_VIEW, url1);
+                Intent a = new Intent(getActivity(),Webviewnews.class);
+                a.putExtra("url",alink.getMurl());
                 startActivity(a);
             }
         });

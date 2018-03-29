@@ -45,14 +45,14 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.search,container,false);
 
-        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swiperefresh);
+        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swiperefresh1);
 
-        final ListView list = (ListView) rootView.findViewById(R.id.list);
+        final ListView list = (ListView) rootView.findViewById(R.id.list1);
 
         search=(EditText)rootView.findViewById(R.id.searchedit);
 
 
-        emptytext = (TextView) rootView.findViewById(R.id.empty);
+        emptytext = (TextView) rootView.findViewById(R.id.empty1);
         list.setEmptyView(emptytext);
 
         adapter = new wordadapter(getActivity(), new ArrayList<word>());
@@ -63,8 +63,8 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 word alink = adapter.getItem(position);
-                Uri url1 = Uri.parse(alink.getMurl());
-                Intent a = new Intent(Intent.ACTION_VIEW, url1);
+                Intent a = new Intent(getActivity(),Webviewnews.class);
+                a.putExtra("url",alink.getMurl());
                 startActivity(a);
             }
         });
@@ -91,7 +91,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
                 modified=USGS_REQUEST_URL+"?q="+a+"&apiKey=b5bfe33e18c943d7bc7a757b1760160c+"+"&sortBy=publishedAt";
                 adapter = new wordadapter(getActivity(), new ArrayList<word>());
                 list.setAdapter(adapter);
-                View loadingIndicator = getView().findViewById(R.id.loading);
+                View loadingIndicator = getView().findViewById(R.id.loading1);
                 loadingIndicator.setVisibility(View.VISIBLE);
                 emptytext.setVisibility(View.INVISIBLE);
 
@@ -111,7 +111,7 @@ public void search()
     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
     final boolean isConnected = activeNetwork != null &&
             activeNetwork.isConnectedOrConnecting();
-    View loadingIndicator = getActivity().findViewById(R.id.loading);
+    View loadingIndicator = getActivity().findViewById(R.id.loading1);
     loadingIndicator.setVisibility(View.VISIBLE);
     if (isConnected) {
         LoaderManager task = getLoaderManager();
@@ -135,7 +135,7 @@ public void search()
 
     @Override
     public void onLoadFinished(Loader<List<word>> loader, List<word> data) {
-        View loadingIndicator = getView().findViewById(R.id.loading);
+        View loadingIndicator = getView().findViewById(R.id.loading1);
         loadingIndicator.setVisibility(View.GONE);
         emptytext.setText("NO NEWS FOUND");
         adapter.clear();

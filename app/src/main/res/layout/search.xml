@@ -32,12 +32,12 @@
 
         <android.support.v4.widget.SwipeRefreshLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swiperefresh"
+            android:id="@+id/swiperefresh1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <ListView
             android:layout_width="wrap_content"
-            android:id="@+id/list"
+            android:id="@+id/list1"
             android:layout_height="wrap_content">
         </ListView>
         </android.support.v4.widget.SwipeRefreshLayout>
@@ -47,13 +47,14 @@
             android:fontFamily="cursive"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="20sp"
-            android:id="@+id/empty"
+            android:id="@+id/empty1"
             android:layout_centerInParent="true"/>
         <ProgressBar
-            android:id="@+id/loading"
+            android:id="@+id/loading1"
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>
