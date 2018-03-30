@@ -55,6 +55,7 @@
             android:minHeight="100dp"
             android:layout_marginLeft="2dp"
             android:id="@+id/image1"
+            android:layout_gravity="end"
             android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
     <TextView

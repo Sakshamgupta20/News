@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,9 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     private EditText search;
     String a;
     String modified;
+    public static int index = -1;
+    public static int top = -1;
+    ListView list;
     private Button retry;
     public static final String LOG_TAG = utils.class.getSimpleName();
 
@@ -47,11 +51,15 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swiperefresh1);
 
-        final ListView list = (ListView) rootView.findViewById(R.id.list1);
+         list = (ListView) rootView.findViewById(R.id.list1);
 
         search=(EditText)rootView.findViewById(R.id.searchedit);
 
-
+        if(savedInstanceState!=null) {
+            index = savedInstanceState.getInt("index");
+            top = savedInstanceState.getInt("top");
+            modified=savedInstanceState.getString("modi");
+        }
         emptytext = (TextView) rootView.findViewById(R.id.empty1);
         list.setEmptyView(emptytext);
 
@@ -100,6 +108,10 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+        if(!TextUtils.isEmpty(modified))
+        {
+            search();
+        }
         return rootView;
     }
 
@@ -112,7 +124,6 @@ public void search()
     final boolean isConnected = activeNetwork != null &&
             activeNetwork.isConnectedOrConnecting();
     View loadingIndicator = getActivity().findViewById(R.id.loading1);
-    loadingIndicator.setVisibility(View.VISIBLE);
     if (isConnected) {
         LoaderManager task = getLoaderManager();
         task.restartLoader(1, null,SearchFragment.this);
@@ -142,10 +153,28 @@ public void search()
         if (data != null && !data.isEmpty()) {
             adapter.addAll(data);
         }
+        if(index != -1)
+        {
+            list.setSelectionFromTop( index, top);
+        }
     }
     @Override
     public void onLoaderReset(Loader<List<word>> loader) {
         adapter.clear();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        index =list.getFirstVisiblePosition();
+        View v = list.getChildAt(0);
+        top = (v == null) ? 0 : (v.getTop() - list.getPaddingTop());
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("index",index);
+        outState.putInt("top",top);
+        outState.putString("modi",modified);
     }
 
 }
