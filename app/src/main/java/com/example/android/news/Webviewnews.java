@@ -48,6 +48,7 @@ public class Webviewnews extends AppCompatActivity {
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         myWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         myWebView.loadUrl(url);
     }
 
