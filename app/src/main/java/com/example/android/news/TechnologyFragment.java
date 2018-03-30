@@ -30,6 +30,9 @@ public class TechnologyFragment extends Fragment implements LoaderManager.Loader
     private wordadapter adapter = null;
     private TextView emptytext;
     private Button retry;
+    public static int index = -1;
+    public static int top = -1;
+    ListView list;
     private View loadingIndicator;
     public static final String LOG_TAG = utils.class.getSimpleName();
 
@@ -42,8 +45,11 @@ public class TechnologyFragment extends Fragment implements LoaderManager.Loader
 
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swiperefresh);
 
-        final ListView list = (ListView) rootView.findViewById(R.id.list);
-
+        list = (ListView) rootView.findViewById(R.id.list);
+        if(savedInstanceState!=null) {
+            index = savedInstanceState.getInt("index");
+            top = savedInstanceState.getInt("top");
+        }
         emptytext = (TextView) rootView.findViewById(R.id.empty);
         list.setEmptyView(emptytext);
 
@@ -69,9 +75,6 @@ public class TechnologyFragment extends Fragment implements LoaderManager.Loader
             @Override
             public void onRefresh() {
                 adapter.clear();
-                adapter = new wordadapter(getActivity(), new ArrayList<word>());
-                list.setAdapter(adapter);
-
                 loadingIndicator.setVisibility(View.VISIBLE);
                 emptytext.setVisibility(View.INVISIBLE);
 
@@ -136,10 +139,27 @@ public class TechnologyFragment extends Fragment implements LoaderManager.Loader
         if (data != null && !data.isEmpty()) {
             adapter.addAll(data);
         }
+        if(index != -1)
+        {
+            list.setSelectionFromTop( index, top);
+        }
     }
     @Override
     public void onLoaderReset(Loader<List<word>> loader) {
         adapter.clear();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        index =list.getFirstVisiblePosition();
+        View v = list.getChildAt(0);
+        top = (v == null) ? 0 : (v.getTop() - list.getPaddingTop());
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("index",index);
+        outState.putInt("top",top);
     }
 
 }
